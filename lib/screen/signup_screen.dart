@@ -1,4 +1,17 @@
+import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
+import 'package:async/async.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+
+import 'package:path_provider/path_provider.dart';
+import 'package:image/image.dart' as Img;
+
+import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -15,6 +28,8 @@ class Signup extends StatefulWidget {
 class _SignupState extends State<Signup> with Validation {
   bool Setuju = true;
   final formKey = GlobalKey<FormState>();
+  File _image;
+  var _image2;
 
   String fullname = '';
   String name = '';
@@ -33,6 +48,28 @@ class _SignupState extends State<Signup> with Validation {
   String confPassword = '';
 
 
+  Future getImageGallery() async{
+    var imageFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+
+    final tempDir =await getTemporaryDirectory();
+    final path = tempDir.path;
+
+
+    int rand= new Math.Random().nextInt(100000);
+
+    Img.Image image= Img.decodeImage(imageFile.readAsBytesSync());
+    Img.Image smallerImg = Img.copyResize(image, width: 500);
+
+    var compressImg= new File("$path/image_$rand.jpg")
+      ..writeAsBytesSync(Img.encodeJpg(smallerImg, quality: 85));
+
+    var compressImg2= ("image_$rand.jpg");
+
+    setState(() {
+      _image = compressImg;
+      _image2 = compressImg2.toString();
+    });
+  }
 
   String _jeniskelamin = "";
   void _pilihjeniskelamin(String value) {
@@ -118,6 +155,7 @@ class _SignupState extends State<Signup> with Validation {
       "pendidikan": _pendidikan,
       "pekerjaan": controllerpekerjaan.text,
       "organisasi": controllerorganisasi.text,
+      "foto" : _image2,
       "hobi": controllerhobby.text,
       "username": controlleruser.text,
       "password": controllerpassword.text
@@ -929,6 +967,50 @@ class _SignupState extends State<Signup> with Validation {
                               borderRadius: new BorderRadius.circular(30.0))),
                     ),
                   ],
+                ),
+                new Padding(
+                  padding: EdgeInsets.only(top: 20.0),
+                ),
+                new Row(
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
+                      child: new Text("Foto Profile",
+                          style: TextStyle(
+                            //fontWeight: FontWeight.bold,
+                            fontSize: 14.0,
+                          ),
+                          textAlign: TextAlign.left),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
+                child :new SizedBox(
+                  width: 170,
+                  height: 45,
+                  child: new RaisedButton.icon(
+                    icon: Icon(Icons.image, color: Colors.blue,) ,
+                    shape: new RoundedRectangleBorder(
+                        borderRadius:
+                        new BorderRadius.circular(
+                            5.0)),
+                    color: Colors.white,
+                    onPressed: getImageGallery,
+                    label: _image==null
+                    ? new Text(
+                      "Tambahkan File",
+                      style: new TextStyle(
+                          fontWeight: FontWeight
+                              .bold, color: Colors.blue),
+                    ) :
+                        new Text (_image2),
+                  ),
+                ),
+                    )
+        ],
                 ),
                 new Padding(
                   padding: EdgeInsets.only(top: 20.0),
