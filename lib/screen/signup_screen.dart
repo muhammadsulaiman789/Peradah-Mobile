@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:peradahmobile/mixins/validation.dart';
 import 'package:peradahmobile/screen/login_screen.dart';
 
 class Signup extends StatefulWidget {
@@ -11,26 +12,27 @@ class Signup extends StatefulWidget {
   _SignupState createState() => _SignupState();
 }
 
-class _SignupState extends State<Signup> {
+class _SignupState extends State<Signup> with Validation {
   bool Setuju = true;
-  GlobalKey<FormState> _key = new GlobalKey();
-  bool _validate = false;
-  String password;
-  String confirm_password;
+  final formKey = GlobalKey<FormState>();
 
-  String validatePassword(String value) {
-    if (value.length < 8)
-      return 'Password must be more than 8 charater';
-    else
-      return null;
-  }
+  String fullname = '';
+  String name = '';
+  String tanggal = '';
+  String Alamat = '';
+  String DPP = '';
+  String Kota = '';
+  String Provinsi = '';
+  String NoHP = '';
+  String email = '';
+  String pekerjaan = '';
+  String Hobi = '';
+  String identitas = '';
+  String user = '';
+  String password = '';
+  String confPassword = '';
 
-  String validateconfPassword(String value) {
-    if (value.length < 8)
-      return 'Password must be more than 8 charater';
-    else
-      return null;
-  }
+
 
   String _jeniskelamin = "";
   void _pilihjeniskelamin(String value) {
@@ -157,8 +159,9 @@ class _SignupState extends State<Signup> {
         // the App.build method, and use it to set our appbar title.
         title: Text('Daftar'),
       ),
-      key: _key,
-      body: new ListView(
+      body: Form(
+        key: formKey,
+        child: ListView(
         children: <Widget>[
           new Container(
             width: 200,
@@ -183,8 +186,12 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
                       controller: controllernamalengkap,
+                      validator: validateNameLengkap,
+                      onSaved: (String value) {
+                        fullname = value;
+                      },
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(30.0))),
@@ -209,7 +216,11 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
+                      validator: validateName,
+                      onSaved: (String value) {
+                        name = value;
+                      },
                       controller: controllernamapanggilan,
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -235,7 +246,11 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
+                      validator: validateDate,
+                      onSaved: (String value) {
+                        tanggal = value;
+                      },
                       controller: controllertanggallahir,
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -363,7 +378,11 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
+                      validator: validateAddress,
+                      onSaved: (String value) {
+                       Alamat  = value;
+                      },
                       controller: controlleralamat,
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -466,7 +485,11 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
+                      validator: validateDPP,
+                      onSaved: (String value) {
+                        DPP = value;
+                      },
                       controller: controllerkomisariat,
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -565,7 +588,11 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
+                      validator: validateKota,
+                      onSaved: (String value) {
+                        Kota = value;
+                      },
                       controller: controllerkota,
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -591,8 +618,12 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
                       controller: controllerprovinsi,
+                      validator: validateProvinsi,
+                      onSaved: (String value) {
+                        Provinsi = value;
+                      },
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(30.0))),
@@ -616,8 +647,13 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
+                      keyboardType: TextInputType.phone,
                       controller: controllernotlp,
+                      validator: validateNoHP,
+                      onSaved: (String value) {
+                        NoHP = value;
+                      },
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(30.0))),
@@ -642,7 +678,12 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
+                      keyboardType: TextInputType.emailAddress,
+                      validator: validateEmail,
+                      onSaved: (String value) {
+                        email = value;
+                      },
                       controller: controlleremail,
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -791,7 +832,11 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
+                      validator: validatePekerjaan,
+                      onSaved: (String value) {
+                        pekerjaan = value;
+                      },
                       controller: controllerpekerjaan,
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -843,7 +888,11 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
+                      validator: validateHobi,
+                      onSaved: (String value) {
+                        Hobi = value;
+                      },
                       controller: controllerhobby,
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
@@ -869,8 +918,12 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
                       controller: controlleridentitas,
+                      validator: validateIdentitas,
+                      onSaved: (String value) {
+                        identitas = value;
+                      },
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(30.0))),
@@ -911,13 +964,18 @@ class _SignupState extends State<Signup> {
                 ),
                 new Column(
                   children: <Widget>[
-                    new TextField(
+                    new TextFormField(
+                      keyboardType: TextInputType.emailAddress,
                       controller: controlleruser,
                       decoration: new InputDecoration(
                           hintText: "Email",
                           hintStyle: TextStyle(color: Colors.black26),
                           border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(30.0))),
+                      validator: validateUser,
+                      onSaved: (String value) {
+                        user = value;
+                      },
                     ),
                   ],
                 ),
@@ -940,12 +998,12 @@ class _SignupState extends State<Signup> {
                 new Column(
                   children: <Widget>[
                     new TextFormField(
-                      validator: validatePassword,
-                      maxLength: 8,
+                      //validator: validatePassword,
                       obscureText: _secureText,
                       textInputAction: TextInputAction.next,
-                      onSaved: (String val) {
-                        password = val;
+                      validator: validatePassword,
+                      onSaved: (String value) {
+                        password = value;
                       },
                       //controller: controllerpassword,
                       decoration: new InputDecoration(
@@ -955,7 +1013,7 @@ class _SignupState extends State<Signup> {
                                 ? Icons.visibility_off
                                 : Icons.visibility),
                           ),
-                          hintText: "Password must at least 8 character",
+                          hintText: "Password",
                           hintStyle: TextStyle(color: Colors.black26),
                           border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(30.0))),
@@ -981,11 +1039,10 @@ class _SignupState extends State<Signup> {
                 new Column(
                   children: <Widget>[
                     new TextFormField(
-                      validator: validateconfPassword,
-                      onSaved: (String val) {
-                        confirm_password = val;
+                      validator: validateConfPassword,
+                      onSaved: (String value) {
+                        confPassword = value;
                       },
-                      maxLength: 8,
                       textInputAction: TextInputAction.done,
                       obscureText: _secureText2,
                       controller: controllerpassword,
@@ -996,7 +1053,7 @@ class _SignupState extends State<Signup> {
                                 ? Icons.visibility_off
                                 : Icons.visibility),
                           ),
-                          hintText: "Password must at least 8 character",
+                          hintText: "Confirm",
                           hintStyle: TextStyle(color: Colors.black26),
                           border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(30.0))),
@@ -1041,12 +1098,13 @@ class _SignupState extends State<Signup> {
                     color: Colors.red[900],
                     onPressed:
                         () {
-                      addData();
-                      Navigator.of(context).push(new MaterialPageRoute(
-                        builder: (BuildContext context) => LoginScreen(),
-                      ));
-                      // login(context, model);
-                      // loginUser();
+                          if (formKey.currentState.validate()) {
+                            formKey.currentState.save();
+                            addData();
+                            Navigator.of(context).push(new MaterialPageRoute(
+                              builder: (BuildContext context) => LoginScreen(),
+                            ));
+                          }
                     },
                     child: new Text(
                       "SIGN UP",
@@ -1061,6 +1119,7 @@ class _SignupState extends State<Signup> {
           ),
         ],
       ),
+      )
     );
   }
 }

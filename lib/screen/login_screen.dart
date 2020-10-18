@@ -25,6 +25,8 @@ class _LoginScreenState extends State<LoginScreen> {
   String phone = '';
   String _password = '';
 
+
+
   bool _secureText = true;
   showHide() {
     setState(() {
@@ -100,6 +102,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                           EdgeInsets.only(
                                               left: 10.0, right: 10.0),
                                           child: new TextFormField(
+                                            style: TextStyle(
+                                              color: Colors.white54,
+                                            ),
                                             controller: _usernameFilter,
                                             //validator: (e) {
                                             //if (e.isEmpty) {
@@ -122,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   )),
                                             ),
                                             keyboardType: TextInputType
-                                                .text,
+                                                .emailAddress,
                                           //  inputFormatters: [WhitelistingTextInputFormatter.digitsOnly],
                                           ),
                                         ),
@@ -132,6 +137,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 right: 10.0,
                                                 top: 5.0),
                                             child: new TextFormField(
+                                              style: TextStyle(
+                                                color: Colors.white54,
+                                              ),
                                               obscureText: _secureText,
                                               //onSaved: (e) => password = e,
                                               //obscureText: true,
