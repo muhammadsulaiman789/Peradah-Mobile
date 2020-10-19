@@ -27,6 +27,7 @@ class _SignupState extends State<Signup> with Validation {
   bool Setuju = true;
   final formKey = GlobalKey<FormState>();
   File _image;
+
   var _image2;
 
   String fullname = '';
@@ -143,9 +144,9 @@ class _SignupState extends State<Signup> with Validation {
       "namapanggilan": controllernamapanggilan.text,
       "tanggallahir": controllertanggallahir.text,
       "jeniskelamin": _jeniskelamin,
-      "komisariat" : controllerkomisariat,
+      "komisariat" : controllerkomisariat.text,
       "jabatan" : _jabatan,
-      "jabatan" : controllerlain,
+      "jabatan" : controllerlain.text,
       "status": _status,
       "keanggotaan" : _anggota,
       "alamat": controlleralamat.text,
