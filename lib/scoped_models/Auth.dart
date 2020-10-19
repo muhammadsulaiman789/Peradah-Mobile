@@ -32,7 +32,8 @@ mixin Auth on CoreModel {
         _userSubject.add(true);
         userData = User.fromJson(data);
         print('user data ${userData.username}');
-        prefs.setInt('id', userData.id);
+        prefs.setInt('nomor_anggota', userData.nomor_anggota);
+        prefs.setString('nik', userData.nik);
         prefs.setString('nama_lengkap', userData.nama_lengkap);
         prefs.setString('nama_panggilan', userData.nama_panggilan);
         prefs.setString('tempat_tanggal_lahir', userData.tempat_tanggal_lahir);
@@ -43,12 +44,13 @@ mixin Auth on CoreModel {
         prefs.setString('provinsi', userData.provinsi);
         prefs.setString('no_kontak', userData.no_kontak);
         prefs.setString('email', userData.email);
-        prefs.setString('website', userData.website);
+        prefs.setString('keanggotaan', userData.keanggotaan);
+        prefs.setString('dpp/dpk/komisariat', userData.komisariat);
+        prefs.setString('jabatan', userData.jabatan);
         prefs.setString('pendidikan_terakhir', userData.pendidikan_terakhir);
         prefs.setString('pekerjaan', userData.pekerjaan);
-        prefs.setString('pengalaman_organisasi', userData.pengalaman_organisasi);
         prefs.setString('hobby', userData.hobby);
-        prefs.setString('jenis_identitas', userData.jenis_identitas);
+        prefs.setString('foto', userData.foto);
         prefs.setString('username', userData.username);
         return true;
       } catch (err) {
@@ -69,7 +71,8 @@ mixin Auth on CoreModel {
     if (isLogin) {
       _userSubject.add(true);
       userData = User(
-        id: prefs.getInt('id'),
+        nomor_anggota: prefs.getInt('nomor_anggota'),
+        nik: prefs.getString('nik'),
         nama_lengkap: prefs.getString('nama_lengkap'),
         nama_panggilan: prefs.getString('nama_panggilan'),
         tempat_tanggal_lahir: prefs.getString('tempat_tanggal_lahir'),
@@ -80,12 +83,13 @@ mixin Auth on CoreModel {
         provinsi: prefs.getString('provinsi'),
         no_kontak: prefs.getString('no_kontak'),
         email: prefs.getString('email'),
-        website: prefs.getString('website'),
+        keanggotaan: prefs.getString('keanggotaan'),
+        komisariat: prefs.getString('dpp/dpk/komisariat'),
+        jabatan: prefs.getString('jabatan'),
         pendidikan_terakhir: prefs.getString('pendidikan_terakhir'),
         pekerjaan: prefs.getString('pekerjaan'),
-        pengalaman_organisasi: prefs.getString('pengalaman_organisasi'),
         hobby: prefs.getString('hobby'),
-        jenis_identitas: prefs.getString('jenis_identitas'),
+        foto: prefs.getString('foto'),
         username: prefs.getString('username'),
       );
     }

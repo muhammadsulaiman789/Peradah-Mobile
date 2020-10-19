@@ -1,5 +1,6 @@
 class User {
-  int id;
+  int nomor_anggota;
+  String nik;
   String nama_lengkap;
   String nama_panggilan;
   String tempat_tanggal_lahir;
@@ -10,16 +11,18 @@ class User {
   String provinsi;
   String no_kontak;
   String email;
-  String website;
+  String keanggotaan;
+  String komisariat;
+  String jabatan;
   String pendidikan_terakhir;
   String pekerjaan;
-  String pengalaman_organisasi;
   String hobby;
-  String jenis_identitas;
+  String foto;
   String username;
 
   User({
-    this.id,
+    this.nomor_anggota,
+    this.nik,
     this.nama_lengkap,
     this.nama_panggilan,
     this.tempat_tanggal_lahir,
@@ -30,19 +33,21 @@ class User {
     this.provinsi,
     this.no_kontak,
     this.email,
-    this.website,
+    this.keanggotaan,
+    this.komisariat,
+    this.jabatan,
     this.pendidikan_terakhir,
     this.pekerjaan,
-    this.pengalaman_organisasi,
     this.hobby,
-    this.jenis_identitas,
+    this.foto,
     this.username,
   });
 
   User.fromJson(Map<String, dynamic> map) {
     print('enter');
     //login = map['login'].toString();
-    this.id = map['id'];
+    this.nomor_anggota = map['nomor_anggota'];
+    this.nik = map['nik'];
     this.nama_lengkap = map['nama_lengkap'];
     this.nama_panggilan = map['name_panggilan'];
     this.tempat_tanggal_lahir = map['tempat_tanggal_lahir'];
@@ -53,12 +58,13 @@ class User {
     this.provinsi = map['provinsi'];
     this.no_kontak = map['no_kontak'];
     this.email = map['email'];
-    this.website = map['website'];
+    this.keanggotaan = map['keanggotaan'];
+    this.komisariat = map['dpp/dpk/komisariat'];
+    this.jabatan = map['jabatan'];
     this.pendidikan_terakhir = map['pendidikan_terakhir'];
     this.pekerjaan = map['pekerjaan'];
-    this.pengalaman_organisasi = map['pengalaman_organisasi'];
     this.hobby = map['hobby'];
-    this.jenis_identitas = map['jenis_identitas'];
+    this.foto = map['foto'];
     this.username = map['username'];
 
 //    this.RoleID = map['RoleID'];

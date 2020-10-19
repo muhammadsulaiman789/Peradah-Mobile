@@ -1,16 +1,13 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:async/async.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
-
 import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as Img;
-
 import 'dart:math' as Math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -26,6 +23,7 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> with Validation {
+
   bool Setuju = true;
   final formKey = GlobalKey<FormState>();
   File _image;
@@ -116,7 +114,6 @@ class _SignupState extends State<Signup> with Validation {
   TextEditingController controllernotlp = new TextEditingController();
   TextEditingController controlleremail = new TextEditingController();
   TextEditingController controllerpekerjaan = new TextEditingController();
-  TextEditingController controllerorganisasi = new TextEditingController();
   TextEditingController controllerhobby = new TextEditingController();
   TextEditingController controlleridentitas = new TextEditingController();
   TextEditingController controlleruser = new TextEditingController();
@@ -140,13 +137,17 @@ class _SignupState extends State<Signup> with Validation {
 
   void addData() {
     var url = "http://203.171.221.227:88/peradah/adduser.php";
-
     http.post(url, body: {
+      "nik" : controlleridentitas.text,
       "namalengkap": controllernamalengkap.text,
       "namapanggilan": controllernamapanggilan.text,
       "tanggallahir": controllertanggallahir.text,
       "jeniskelamin": _jeniskelamin,
+      "komisariat" : controllerkomisariat,
+      "jabatan" : _jabatan,
+      "jabatan" : controllerlain,
       "status": _status,
+      "keanggotaan" : _anggota,
       "alamat": controlleralamat.text,
       "kota": controllerkota.text,
       "provinsi": controllerprovinsi.text,
@@ -154,8 +155,7 @@ class _SignupState extends State<Signup> with Validation {
       "email": controlleremail.text,
       "pendidikan": _pendidikan,
       "pekerjaan": controllerpekerjaan.text,
-      "organisasi": controllerorganisasi.text,
-      "foto" : _image2,
+      "image" : _image2,
       "hobi": controllerhobby.text,
       "username": controlleruser.text,
       "password": controllerpassword.text
@@ -504,7 +504,6 @@ class _SignupState extends State<Signup> with Validation {
                     ),
                   ],
                 ),
-
                 new Padding(
                   padding: EdgeInsets.only(top: 20.0),
                 ),
@@ -859,7 +858,7 @@ class _SignupState extends State<Signup> with Validation {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
-                      child: new Text("Pekerjaan / Jabatan",
+                      child: new Text("Pekerjaan",
                           style: TextStyle(
                             //fontWeight: FontWeight.bold,
                             fontSize: 14.0,
@@ -876,32 +875,6 @@ class _SignupState extends State<Signup> with Validation {
                         pekerjaan = value;
                       },
                       controller: controllerpekerjaan,
-                      decoration: new InputDecoration(
-                          border: new OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(30.0))),
-                    ),
-                  ],
-                ),
-                new Padding(
-                  padding: EdgeInsets.only(top: 20.0),
-                ),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
-                      child: new Text("Pengalaman Berorganisasi",
-                          style: TextStyle(
-                            //fontWeight: FontWeight.bold,
-                            fontSize: 14.0,
-                          ),
-                          textAlign: TextAlign.left),
-                    ),
-                  ],
-                ),
-                new Column(
-                  children: <Widget>[
-                    new TextField(
-                      controller: controllerorganisasi,
                       decoration: new InputDecoration(
                           border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(30.0))),
@@ -945,7 +918,7 @@ class _SignupState extends State<Signup> with Validation {
                   children: <Widget>[
                     Padding(
                       padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
-                      child: new Text("Jenis & No.Identitas: KTP/SIM/PASPOR",
+                      child: new Text("NIK",
                           style: TextStyle(
                             //fontWeight: FontWeight.bold,
                             fontSize: 14.0,
