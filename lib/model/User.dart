@@ -50,7 +50,7 @@ class User {
     this.nik = map['nik'];
     this.nama_lengkap = map['nama_lengkap'];
     this.nama_panggilan = map['name_panggilan'];
-    this.tempat_tanggal_lahir = map['tempat_tanggal_lahir'];
+    this.tempat_tanggal_lahir = map['tempat_tgl_lahir'];
     this.jenis_kelamin = map['jenis_kelamin'];
     this.status_perkawinan = map['status_perkawinan'];
     this.alamat = map['alamat'];
@@ -59,7 +59,7 @@ class User {
     this.no_kontak = map['no_kontak'];
     this.email = map['email'];
     this.keanggotaan = map['keanggotaan'];
-    this.komisariat = map['dpp/dpk/komisariat'];
+    this.komisariat = map['nama_keanggotaan'];
     this.jabatan = map['jabatan'];
     this.pendidikan_terakhir = map['pendidikan_terakhir'];
     this.pekerjaan = map['pekerjaan'];

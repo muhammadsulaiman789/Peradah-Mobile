@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:peradahmobile/screen/main_screen.dart';
@@ -11,23 +10,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
-
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   TextEditingController _usernameFilter = new TextEditingController();
   TextEditingController _passwordFilter = new TextEditingController();
   String phone = '';
   String _password = '';
-
-
-
   bool _secureText = true;
+
   showHide() {
     setState(() {
       _secureText = !_secureText;
@@ -180,8 +176,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     5.0)),
                                             color: Colors.red[900],
                                             onPressed: () {
-                                              Navigator.pushNamed(context, '/Home');
-                                              //login(context, model);
+                                            //  Navigator.pushNamed(context, '/Home');
+                                              login(context, model);
                                               // loginUser();
                                             },
                                             child: new Text(

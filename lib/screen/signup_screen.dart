@@ -28,7 +28,7 @@ class _SignupState extends State<Signup> with Validation {
   final formKey = GlobalKey<FormState>();
   File _image;
 
-  var _image2;
+  String _image2;
 
   String fullname = '';
   String name = '';
@@ -136,54 +136,60 @@ class _SignupState extends State<Signup> with Validation {
     });
   }
 
-  void addData() {
-    var url = "http://203.171.221.227:88/peradah/adduser.php";
-    http.post(url, body: {
-      "nik" : controlleridentitas.text,
-      "namalengkap": controllernamalengkap.text,
-      "namapanggilan": controllernamapanggilan.text,
-      "tanggallahir": controllertanggallahir.text,
-      "jeniskelamin": _jeniskelamin,
-      "komisariat" : controllerkomisariat.text,
-      "jabatan" : _jabatan,
-      "jabatan" : controllerlain.text,
-      "status": _status,
-      "keanggotaan" : _anggota,
-      "alamat": controlleralamat.text,
-      "kota": controllerkota.text,
-      "provinsi": controllerprovinsi.text,
-      "kontak": controllernotlp.text,
-      "email": controlleremail.text,
-      "pendidikan": _pendidikan,
-      "pekerjaan": controllerpekerjaan.text,
-      "image" : _image2,
-      "hobi": controllerhobby.text,
-      "username": controlleruser.text,
-      "password": controllerpassword.text
-    }).then((value) {
-      print('code ${value.statusCode}');
-      if (value.statusCode==200){
-        Fluttertoast.showToast(
-            msg : "Daftar Berhasil",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.green,
-            textColor: Colors.white,
-            fontSize: 16.0);
-      } else {
-        Fluttertoast.showToast(
-            msg : "Daftar Gagal",
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
-      }
-    })
-        .catchError((onError) {
-      print('error $onError');
+  Future upload(File imageFile, context) async{
+
+    var stream= new http.ByteStream(DelegatingStream.typed(_image.openRead()));
+    var length= await _image.length();
+    var uri = Uri.parse("http://203.171.221.227:88/peradah/adduser.php");
+    // http://203.171.221.227:88/mobile/addattendance.php
+    var request = new http.MultipartRequest("POST", uri);
+    var multipartFile = new http.MultipartFile("image", stream, length, filename: basename(_image.path));
+    //request.fields['title'] = cTitle.text;
+    request.fields['nik'] = controlleridentitas.text;
+    request.fields['namalengkap'] =  controllernamalengkap.text;
+    request.fields['namapanggilan'] = controllernamapanggilan.text;
+    request.fields['tanggallahir'] = controllertanggallahir.text;
+    request.fields['jeniskelamin'] = _jeniskelamin;
+    request.fields['komisariat'] = controllerkomisariat.text;
+    request.fields['jabatan'] = controllerlain.text;
+    request.fields['status'] = _status;
+    request.fields['keanggotaan'] =  _anggota ;
+    request.fields['alamat'] = controlleralamat.text ;
+    request.fields['kota'] = controllerkota.text;
+    request.fields['provinsi'] = controllerprovinsi.text ;
+    request.fields['kontak'] = controllernotlp.text ;
+    request.fields['email'] = controlleremail.text ;
+    request.fields['pendidikan'] =  _pendidikan ;
+    request.fields['pekerjaan'] = controllerpekerjaan.text ;
+   // request.fields['image'] = tangg;
+    request.fields['hobi'] = controllerhobby.text ;
+    request.fields['username'] = controlleruser.text ;
+    request.fields['password'] = controllerpassword.text;
+    request.files.add(multipartFile);
+
+    var response = await request.send();
+    if(response.statusCode==200){
+      print("Image Uploaded");
+      Fluttertoast.showToast(
+          msg : "Daftar Berhasil",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }else{
+      Fluttertoast.showToast(
+          msg : "Daftar Gagal",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    }
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
     });
   }
 
@@ -551,58 +557,13 @@ class _SignupState extends State<Signup> with Validation {
                     ),
                   ],
                 ),
-                new Row(
-                  children: <Widget>[
-                    new Radio(
-                      value: "Ketua",
-                      groupValue: _jabatan,
-                      onChanged: (value) {
-                        _pilihjabatan(value);
-                        print('value $value');
-                      },
-                      activeColor: Colors.red,
-                    ),
-                    new Text(
-                      'Ketua',
-                      style: new TextStyle(fontSize: 14.0),
-                    ),
-                    new Padding(
-                      padding: EdgeInsets.only(left: 5.0),
-                    ),
-                    Radio(
-                      value: "Sekertaris",
-                      groupValue: _jabatan,
-                      onChanged: (value) {
-                        _pilihjabatan(value);
-                      },
-                      activeColor: Colors.red,
-                    ),
-                    new Text(
-                      'Sekertaris',
-                      style: new TextStyle(fontSize: 14.0),
-                    ),
-                    new Radio(
-                      value: "Anggota",
-                      groupValue: _jabatan,
-                      onChanged: (value) {
-                        _pilihjabatan(value);
-                        print('value $value');
-                      },
-                      activeColor: Colors.red,
-                    ),
-                    new Text(
-                      'Anggota',
-                      style: new TextStyle(fontSize: 14.0),
-                    ),
-                  ],
-                ),
                 new Column(
                   children: <Widget>[
                     new TextField(
                       controller: controllerlain,
                       decoration: new InputDecoration(
-                          labelText: "Yang lain",
-                          labelStyle: TextStyle(color: Colors.black87, fontSize: 15.0,),
+                         // labelText: "Yang lain",
+                         // labelStyle: TextStyle(color: Colors.black87, fontSize: 15.0,),
                           border: new OutlineInputBorder(
                               borderRadius: new BorderRadius.circular(30.0))),
                     ),
@@ -1156,7 +1117,8 @@ class _SignupState extends State<Signup> with Validation {
                         () {
                           if (formKey.currentState.validate()) {
                             formKey.currentState.save();
-                            addData();
+                            //addData();
+                            upload(_image, context);
                             Navigator.of(context).push(new MaterialPageRoute(
                               builder: (BuildContext context) => LoginScreen(),
                             ));
