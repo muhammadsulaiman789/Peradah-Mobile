@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 mixin Auth on CoreModel {
+  bool _isLoading = false;
+
   PublishSubject<bool> _userSubject = PublishSubject();
 
   PublishSubject<bool> get userSubject {
@@ -14,14 +16,22 @@ mixin Auth on CoreModel {
   }
 
   Future<bool> signIn(String username, String pwd) async {
+    _isLoading = true;
+    notifyListeners();
+
     final prefs = await SharedPreferences.getInstance();
-    var url = "http://203.171.221.227:88/peradah/api/public/api/login";
+    var url = "http://mobile.peradah.org/peradah/api/public/api/login";
     var response;
     var data;
+    print('data1');
+    print('username $username');
+    print('pwd $pwd');
     await http
         .post(url, body: {"username": username, "password": pwd}).then((value) {
       response = value;
+      print('res $response');
     });
+
 
     data = json.decode(response.body);
     // userData = User.fromJson(data['data']);
@@ -53,11 +63,15 @@ mixin Auth on CoreModel {
         prefs.setString('hobby', userData.hobby);
         prefs.setString('foto', userData.foto);
         prefs.setString('username', userData.username);
+        _isLoading = false;
+        notifyListeners();
         return true;
       } catch (err) {
         _userSubject.add(false);
       }
     } else {
+      _isLoading = false;
+      notifyListeners();
       _userSubject.add(false);
       return false;
     }

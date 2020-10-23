@@ -9,6 +9,7 @@ import 'package:peradahmobile/screen/profile_screen.dart';
 import 'package:peradahmobile/screen/schedule_screen.dart';
 import 'package:peradahmobile/screen/signup_screen.dart';
 import 'package:peradahmobile/screen/splash_screen.dart';
+import 'package:peradahmobile/widget/dialog/MessageDialog.dart';
 import 'dart:async';
 import 'dart:convert';
 import 'package:scoped_model/scoped_model.dart';
@@ -48,6 +49,10 @@ class _MyAppState extends State<MyApp> {
       });
       print('islogin $isLogin');
     });
+
+    // _model.fetchPengumuman().then((value) {
+    //   print('length4 ${_model.pengumumans.length}');
+    // });
   }
 
   //AppModel _model;
@@ -65,7 +70,7 @@ class _MyAppState extends State<MyApp> {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           initialRoute: SplashScreen.id,
-          home: isLogin ? MainScreen() : LoginScreen(),
+          home: isLogin ? MainScreen(_model) : LoginScreen(),
           routes: <String, WidgetBuilder>{
             //'/Porm': (BuildContext context) => Porm(),
             //'/App': (BuildContext context) => App(),
@@ -75,12 +80,12 @@ class _MyAppState extends State<MyApp> {
             '/Profile': (BuildContext context) =>
             isLogin ? Profile() : LoginScreen(),
             '/Schedule': (BuildContext context) =>
-            isLogin ? Schedule() : LoginScreen(),
+            isLogin ? Schedule(_model) : LoginScreen(),
             '/Signup': (BuildContext context) => Signup(),
             '/MainScreen': (BuildContext context) =>
-            isLogin ? MainScreen() : LoginScreen(),
+            isLogin ? MainScreen(_model) : LoginScreen(),
             SplashScreen.id: (BuildContext context) => SplashScreen(),
-            '/Home': (BuildContext context) => MainScreen()
+            '/Home': (BuildContext context) => MainScreen(_model)
 //             Home(),
             //'/MyHomePage': (BuildContext context) => MyHomePage(),
           },

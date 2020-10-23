@@ -5,6 +5,7 @@ import 'package:peradahmobile/scoped_models/AppModel.dart';
 import 'package:peradahmobile/screen/main_home.dart';
 import 'package:peradahmobile/screen/profile_screen.dart';
 import 'package:peradahmobile/screen/schedule_screen.dart';
+import 'package:peradahmobile/widget/dialog/MessageDialog.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:peradahmobile/widget/icon_calendar_icons.dart';
@@ -13,18 +14,14 @@ import 'package:peradahmobile/widget/icon_user_icons.dart';
 
 class MainScreen extends StatefulWidget {
 
-  MainScreen({Key key}) : super(key: key);
+  AppModel model;
 
-  //MemberPage({this.username});
-  //final String username;
-
+  MainScreen(this.model);
   @override
   _MainScreenState createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {
-
-  AppModel model;
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   BuildContext ctx;
@@ -32,19 +29,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     super.initState();
-
-//    _prefs.then((SharedPreferences prefs) {
-//      bool isLogin2 = prefs.getBool('USER_LOGIN')== null ? false : prefs.getBool('USER_LOGIN');
-//      print('login2 $isLogin2');
-//      if (!isLogin2) {
-//        Navigator.pushReplacementNamed(context, '/LoginScreen');
-//      }
-//    });
-    //_controller = PersistentTabController(initialIndex: 0);
   }
 
-  List<Widget> _buildScreens() {
-    return [Home(model), Schedule(), Profile()];
+  List<Widget> _buildScreens(AppModel model) {
+    return [Home(model), Schedule(model), Profile()];
   }
   //, Task(), Broadcast(), Meeting(), Message()
 
@@ -82,7 +70,7 @@ class _MainScreenState extends State<MainScreen> {
         builder: (BuildContext context, Widget child, AppModel model) {
           return Scaffold(
             backgroundColor: const Color(0xffb11806),
-            body: _buildScreens().elementAt(_seletedIndex),
+            body: _buildScreens(model).elementAt(_seletedIndex),
             bottomNavigationBar: BottomNavigationBar(
               items: _navBarsItems(),
               //showSelectedLabels: true,
