@@ -15,7 +15,7 @@ mixin Auth on CoreModel {
 
   Future<bool> signIn(String username, String pwd) async {
     final prefs = await SharedPreferences.getInstance();
-    var url = "http://203.171.221.227:88/peradah/login.php";
+    var url = "http://203.171.221.227:88/peradah/api/public/api/login";
     var response;
     var data;
     await http
@@ -25,13 +25,14 @@ mixin Auth on CoreModel {
 
     data = json.decode(response.body);
     // userData = User.fromJson(data['data']);
+    //print('data1');
     print('data $data');
 //    print('phone2 ${data.MobilePhone}');
-    if (data) {
+    if (data['status']) {
       try {
         _userSubject.add(true);
-        userData = User.fromJson(data);
-        print('username ${userData.username}');
+        userData = User.fromJson(data['data']);
+        print('nama_lengkap ${userData.nama_lengkap}');
         prefs.setInt('nomor_anggota', userData.nomor_anggota);
         prefs.setString('nik', userData.nik);
         prefs.setString('nama_lengkap', userData.nama_lengkap);

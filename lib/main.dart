@@ -71,7 +71,7 @@ class _MyAppState extends State<MyApp> {
             //'/App': (BuildContext context) => App(),
            // '/Attendance1': (BuildContext context) =>
           //  isLogin ? Attendance1(_model) : LoginScreen(),
-            '/Home': (BuildContext context) => Home(),
+            '/Home': (BuildContext context) => Home(_model),
             '/Profile': (BuildContext context) =>
             isLogin ? Profile() : LoginScreen(),
             '/Schedule': (BuildContext context) =>

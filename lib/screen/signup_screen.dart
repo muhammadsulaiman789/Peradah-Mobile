@@ -892,6 +892,7 @@ class _SignupState extends State<Signup> with Validation {
                 new Column(
                   children: <Widget>[
                     new TextFormField(
+                      keyboardType: TextInputType.phone,
                       controller: controlleridentitas,
                       validator: validateIdentitas,
                       onSaved: (String value) {

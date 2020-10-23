@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       begin: Alignment(1.21, -0.39),
                       end: Alignment(-1.38, 0.67),
                       colors: [const Color(0xffcf1c07), const Color(0xff000000)],
-                      stops: [0.0, 1.0],
+                       stops: [0.0, 1.0],
                     ),
                   ),
                 ),
@@ -176,7 +176,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     5.0)),
                                             color: Colors.red[900],
                                             onPressed: () {
-                                            //  Navigator.pushNamed(context, '/Home');
+                                             // Navigator.pushNamed(context, '/Home');
                                               login(context, model);
                                               // loginUser();
                                             },

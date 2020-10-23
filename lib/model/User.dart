@@ -1,4 +1,5 @@
 class User {
+
   int nomor_anggota;
   String nik;
   String nama_lengkap;
@@ -45,7 +46,7 @@ class User {
 
   User.fromJson(Map<String, dynamic> map) {
     print('enter');
-    //login = map['login'].toString();
+    //nomor_anggota = map['nomor_angg'].toString();
     this.nomor_anggota = map['nomor_anggota'];
     this.nik = map['nik'];
     this.nama_lengkap = map['nama_lengkap'];
