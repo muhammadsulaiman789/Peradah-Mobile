@@ -226,6 +226,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future login(BuildContext context, AppModel model) async {
+    setState(() {
+      model.setLoading(true);
+    });
     final SharedPreferences prefs = await _prefs;
 
     await model
@@ -257,6 +260,9 @@ class _LoginScreenState extends State<LoginScreen> {
     }).catchError((onError) {
       MessageDialog.show(context, 'Terjadi kesalahan!', 'Coba ulangi lagi!',
           () => Navigator.of(context).pop());
+      setState(() {
+        model.setLoading(false);
+      });
     });
     setState(() {
 //      phone = model.data.MobilePhone;

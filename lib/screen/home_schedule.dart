@@ -74,7 +74,7 @@ class _SchedulesState extends State<Schedules> {
                   Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                     Padding(
                       padding: EdgeInsets.only(left: 10.0, top: 10.0),
-                      child: new Text("08:00",
+                      child: new Text("",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 14.0,
@@ -157,7 +157,7 @@ class _SchedulesState extends State<Schedules> {
                   Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
                     Padding(
                       padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
-                      child: new Text("11:00",
+                      child: new Text("",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 14.0,

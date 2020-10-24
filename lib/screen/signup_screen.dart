@@ -140,7 +140,7 @@ class _SignupState extends State<Signup> with Validation {
 
     var stream= new http.ByteStream(DelegatingStream.typed(_image.openRead()));
     var length= await _image.length();
-    var uri = Uri.parse("http://203.171.221.227:88/peradah/adduser.php");
+    var uri = Uri.parse("https://mobile.peradah.org/adduser.php");
     // http://203.171.221.227:88/mobile/addattendance.php
     var request = new http.MultipartRequest("POST", uri);
     var multipartFile = new http.MultipartFile("image", stream, length, filename: basename(_image.path));

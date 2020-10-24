@@ -50,11 +50,17 @@ class _HomeState extends State<Home> {
         .catchError((onError) {
       MessageDialog.show(context, 'Terjadi kesalahan $onError',
           'Coba ulangi lagi!', () => Navigator.of(context).pop());
+      setState(() {
+        widget.model.setLoading(false);
+      });
     });
 
     widget.model.fetchPengumuman().catchError((onError) {
       MessageDialog.show(context, 'Terjadi kesalahan $onError',
           'Coba ulangi lagi!', () => Navigator.of(context).pop());
+      setState(() {
+        widget.model.setLoading(false);
+      });
     });
 
     super.initState();
@@ -66,7 +72,7 @@ class _HomeState extends State<Home> {
     widget.model.kegiatans.forEach((e) {
       var schedule = DateTime.parse(e.tanggalKegiatan).microsecondsSinceEpoch;
       print(schedule);
-      if(now > schedule) {
+      if(now == schedule) {
         print('true');
           widget.model.setCurrentKegiatan(e);
       }

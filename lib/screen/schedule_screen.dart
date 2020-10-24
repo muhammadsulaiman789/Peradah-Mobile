@@ -14,6 +14,7 @@ import 'package:intl/intl.dart';
 import 'package:peradahmobile/scoped_models/AppModel.dart';
 import 'package:http/http.dart' as http;
 import 'package:peradahmobile/widget/custom_icon_decoration.dart';
+import 'package:peradahmobile/widget/dialog/MessageDialog.dart';
 import 'package:scoped_model/scoped_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,6 +30,18 @@ class Schedule extends StatefulWidget {
 
 class _ScheduleState extends State<Schedule> {
   BuildContext ctx;
+
+  void initState() {
+    widget.model.fetchPengumuman().catchError((onError) {
+      MessageDialog.show(context, 'Terjadi kesalahan $onError',
+          'Coba ulangi lagi!', () => Navigator.of(context).pop());
+      setState(() {
+        widget.model.setLoading(false);
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,7 +149,7 @@ class Schedules extends StatelessWidget {
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.only(left: 10.0, top: 10.0),
-                                      child: new Text("08:00",
+                                      child: new Text("",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14.0,
@@ -185,7 +198,7 @@ class Schedules extends StatelessWidget {
                                       Padding(
                                         padding: EdgeInsets.only(left: 20),
                                         child: Text(
-                                          model.currentKegiatan.keterangan,
+                                          model.kegiatans[index].keterangan,
                                           style: TextStyle(fontSize: 12, color: Colors.black),
                                         ),
                                       ),
@@ -214,7 +227,7 @@ class Schedules extends StatelessWidget {
                                     Padding(
                                       padding: EdgeInsets.only(left: 10.0,
                                           bottom: 10.0),
-                                      child: new Text("11:00",
+                                      child: new Text("",
                                           style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 14.0,

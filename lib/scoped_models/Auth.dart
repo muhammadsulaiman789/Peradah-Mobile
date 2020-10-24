@@ -15,6 +15,10 @@ mixin Auth on CoreModel {
     return _userSubject;
   }
 
+  void setLoading(bool loading) {
+    _isLoading = loading;
+  }
+
   Future<bool> signIn(String username, String pwd) async {
     _isLoading = true;
     notifyListeners();
