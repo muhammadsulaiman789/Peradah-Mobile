@@ -116,7 +116,7 @@ class _SignupState extends State<Signup> with Validation {
   TextEditingController controlleremail = new TextEditingController();
   TextEditingController controllerpekerjaan = new TextEditingController();
   TextEditingController controllerhobby = new TextEditingController();
-  TextEditingController controlleridentitas = new TextEditingController();
+  //TextEditingController controlleridentitas = new TextEditingController();
   TextEditingController controlleruser = new TextEditingController();
   TextEditingController controllerpassword = new TextEditingController();
   TextEditingController controllerlain = new TextEditingController();
@@ -145,7 +145,7 @@ class _SignupState extends State<Signup> with Validation {
     var request = new http.MultipartRequest("POST", uri);
     var multipartFile = new http.MultipartFile("image", stream, length, filename: basename(_image.path));
     //request.fields['title'] = cTitle.text;
-    request.fields['nik'] = controlleridentitas.text;
+   // request.fields['nik'] = controlleridentitas.text;
     request.fields['namalengkap'] =  controllernamalengkap.text;
     request.fields['namapanggilan'] = controllernamapanggilan.text;
     request.fields['tanggallahir'] = controllertanggallahir.text;
@@ -197,7 +197,7 @@ class _SignupState extends State<Signup> with Validation {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: const Color(0xffb11806),
         // Here we take the value from the MyHomePage object that was created by
@@ -876,37 +876,37 @@ class _SignupState extends State<Signup> with Validation {
                 new Padding(
                   padding: EdgeInsets.only(top: 20.0),
                 ),
-                new Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
-                      child: new Text("NIK",
-                          style: TextStyle(
-                            //fontWeight: FontWeight.bold,
-                            fontSize: 14.0,
-                          ),
-                          textAlign: TextAlign.left),
-                    ),
-                  ],
-                ),
-                new Column(
-                  children: <Widget>[
-                    new TextFormField(
-                      keyboardType: TextInputType.phone,
-                      controller: controlleridentitas,
-                      validator: validateIdentitas,
-                      onSaved: (String value) {
-                        identitas = value;
-                      },
-                      decoration: new InputDecoration(
-                          border: new OutlineInputBorder(
-                              borderRadius: new BorderRadius.circular(30.0))),
-                    ),
-                  ],
-                ),
-                new Padding(
-                  padding: EdgeInsets.only(top: 20.0),
-                ),
+                // new Row(
+                //   children: <Widget>[
+                //     Padding(
+                //       padding: EdgeInsets.only(left: 10.0, bottom: 10.0),
+                //       child: new Text("NIK",
+                //           style: TextStyle(
+                //             //fontWeight: FontWeight.bold,
+                //             fontSize: 14.0,
+                //           ),
+                //           textAlign: TextAlign.left),
+                //     ),
+                //   ],
+                // ),
+                // new Column(
+                //   children: <Widget>[
+                //     new TextFormField(
+                //       keyboardType: TextInputType.phone,
+                //       controller: controlleridentitas,
+                //       validator: validateIdentitas,
+                //       onSaved: (String value) {
+                //         identitas = value;
+                //       },
+                //       decoration: new InputDecoration(
+                //           border: new OutlineInputBorder(
+                //               borderRadius: new BorderRadius.circular(30.0))),
+                //     ),
+                //   ],
+                // ),
+                // new Padding(
+                //   padding: EdgeInsets.only(top: 20.0),
+                // ),
                 new Row(
                   children: <Widget>[
                     Padding(

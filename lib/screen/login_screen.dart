@@ -37,7 +37,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Stack stack = Stack(
           children: <Widget>[
             Scaffold(
-                resizeToAvoidBottomPadding: false,
+               resizeToAvoidBottomInset: false,
                 body: Stack(
                   //shrinkWrap: true,
                   //reverse: false,
