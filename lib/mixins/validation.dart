@@ -1,13 +1,13 @@
 class Validation {
   String validatePassword(String value) {
-    if (value.length < 10) {
+    if (value.length < 8) {
       return 'Password Minimal 8 Karakter';
     }
     return null;
   }
 
   String validatePassword2(String value) {
-    if (value.length < 10) {
+    if (value.length < 8) {
       return 'Password Minimal 8 Karakter';
     }
     return null;

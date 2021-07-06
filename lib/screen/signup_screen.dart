@@ -1123,6 +1123,7 @@ class _SignupState extends State<Signup> with Validation {
                             Navigator.of(context).push(new MaterialPageRoute(
                               builder: (BuildContext context) => LoginScreen(),
                             ));
+                            Navigator.of(context).pop();
                           }
                     },
                     child: new Text(

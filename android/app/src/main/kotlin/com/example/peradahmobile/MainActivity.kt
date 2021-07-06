@@ -1,4 +1,4 @@
-package com.peradah.peradahmobile
+package com.peradah2.peradahmobile2
 
 import io.flutter.embedding.android.FlutterActivity
 

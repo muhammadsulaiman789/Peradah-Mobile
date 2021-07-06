@@ -33,9 +33,10 @@ mixin KegiatanModel on CoreModel {
     _isLoading = true;
     notifyListeners();
 
+    _kegiatans = [];
     print('fetch kegiatan');
     var url = "https://mobile.peradah.org/getkegiatan.php";
-    _kegiatans = [];
+
     var response = await http.get(url);
     var data = jsonDecode(response.body) as List;
     if (data.length > 0) {

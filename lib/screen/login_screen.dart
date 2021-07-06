@@ -17,12 +17,14 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   TextEditingController _usernameFilter = new TextEditingController();
   TextEditingController _passwordFilter = new TextEditingController();
   String phone = '';
   String _password = '';
   bool _secureText = true;
+  bool _clicked = true;
 
   showHide() {
     setState(() {
@@ -93,6 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   padding:
                                       EdgeInsets.only(left: 30.0, right: 30.0),
                                   child: new Form(
+                                    key: _formKey,
                                     child: new Column(
                                       mainAxisSize: MainAxisSize.min,
                                       mainAxisAlignment:
@@ -106,11 +109,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                               color: Colors.white54,
                                             ),
                                             controller: _usernameFilter,
-                                            //validator: (e) {
-                                            //if (e.isEmpty) {
-                                            // return "Please insert email";
-                                            // }
-                                            //},
+                                            validator: (value) => value.isEmpty
+                                                ? 'email tidak boleh kosong' : null,
                                             //onSaved: (e) => username = e,
                                             autofocus: false,
                                             decoration: new InputDecoration(
@@ -226,8 +226,17 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future login(BuildContext context, AppModel model) async {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+
+    if (! _clicked) {
+      return;
+    }
+
     setState(() {
       model.setLoading(true);
+      _clicked = false;
     });
     final SharedPreferences prefs = await _prefs;
 
@@ -243,7 +252,6 @@ class _LoginScreenState extends State<LoginScreen> {
             backgroundColor: Colors.green,
             textColor: Colors.white,
             fontSize: 16.0);
-
         prefs.setBool('USER_LOGIN', true);
         Navigator.pushNamed(context, '/MainScreen');
         Navigator.of(context).pop();
@@ -264,9 +272,6 @@ class _LoginScreenState extends State<LoginScreen> {
         model.setLoading(false);
       });
     });
-    setState(() {
-//      phone = model.data.MobilePhone;
-//          _phoneFilter.text;
-    });
+    _clicked = true;
   }
 }
